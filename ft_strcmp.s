@@ -5,22 +5,22 @@
 #                                                     +:+ +:+         +:+      #
 #    By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/05/05 21:00:02 by sachouam          #+#    #+#              #
-#    Updated: 2020/05/05 21:00:13 by sachouam         ###   ########.fr        #
+#    Created: 2021/05/01 12:33:24 by sachouam          #+#    #+#              #
+#    Updated: 2021/05/05 21:54:49 by sachouam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-		section	.text
+		section .text
 		global	ft_strcmp
 		; rdi == premiere chaine
 		; rsi == deuxieme chaine
-ft_strcmp:	
+ft_strcmp:
 		cmp	rdi, 0
 		je	retzero
 		cmp	rsi, 0
 		je	retzero
 		mov	rdx, 0
-while:		
+while:
 		mov	al, [rdi+rdx]
 		mov	cl, [rsi+rdx]
 		cmp	al, 0
@@ -31,17 +31,18 @@ while:
 		cmp	al, cl
 		je	while
 return:
-		cmp	al, cl
-		jl	retneg
-		jg	retpos
-		mov	rax, 0
-		ret
-retneg:
-		mov	rax, -1
-		ret
-retpos:
-		mov	rax, 1
+	;	cmp	al, cl
+	;	jl	retneg
+	;	jg	retpos
+		mov rax, [rdi+rdx]
+		sub rax, [rsi+rdx]
 		ret
 retzero:
 		mov	rax, 0
 		ret
+;retneg:
+;		mov	rax, -1
+;		ret
+;retpos:
+;		mov	rax, 1
+;		ret

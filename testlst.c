@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 14:49:56 by sachouam          #+#    #+#             */
-/*   Updated: 2019/11/11 17:19:29 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/05/05 11:57:38 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,51 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <errno.h>
+
 # include "libasm.h"
+
+void	list_push_front(t_list **begin_list, void *data)
+{
+	t_list *list;
+
+	if (!(list = (t_list *)malloc(sizeof(t_list))))
+		return ;
+	list->next = *begin_list;
+	list->data = data;
+	*begin_list = list;
+}
+
+int		ft_lstsize(t_list *lst)
+{
+	int		i;
+	t_list	*current;
+
+	i = 0;
+	if (!(current = lst))
+		return (0);
+	while (current != NULL)
+	{
+		current = current->next;
+		i++;
+	}
+	return (i);
+}
+
+void	ft_lstclear(t_list **lst, void (*del)(void*))
+{
+	t_list *svg;
+
+	svg = NULL;
+	if (*lst && del)
+	{
+		while (*lst)
+		{
+			svg = (*lst)->next;
+			free(*lst);
+			*lst = svg;
+		}
+	}
+}
 
 t_list	*ft_lstnew(void *content)
 {
@@ -52,12 +96,12 @@ void	ft_del(void *content)
 {
 	free(content);
 }
-
+/*
 void	ft_content_zero(void *content)
 {
-	printf("iter : %p\n", content);
+	printf("iter : %d\n", (int)content);
 }
-
+*/
 void	*ft_content(void *content)
 {
 	void *i;
@@ -77,7 +121,8 @@ t_list		*ft_lstnew1(void *content)
 	t_list *element;
 	void*	cont;
 
-	if (!(element = malloc(sizeof(t_list))) || (!(cont = malloc(sizeof(*content)))))
+	if (!(element = malloc(sizeof(t_list)))
+	|| (!(cont = malloc(sizeof(*content)))))
 		return (NULL);
 	element->data = cont;
 	element->next = NULL;
@@ -86,7 +131,7 @@ t_list		*ft_lstnew1(void *content)
 
 int		main(void)
 {
-	t_list	*Liste;
+	t_list	*Liste = NULL;
 	t_list	*element;
 	t_list	*element2;
 	t_list	*element3;
@@ -97,14 +142,16 @@ int		main(void)
 	void	*deux;
 	void	*trois;
 	void	*quatre;
-	int	d;
+	int		d;
 
-	un		= (void *)1;
+	un			= (void *)1;
 	deux		= (void *)2;
 	trois		= (void *)3;
 	quatre		= (void *)4;
 
-	d		= 0;
+	d			= 0;
+	printf("size libft  quand Liste est NULL = %d\n", ft_lstsize(Liste));
+	printf("size libasm quand Liste est NULL = %d\n", ft_list_size(Liste));
 	if (!(Liste = ft_lstnew(un))
 	|| (!(element = ft_lstnew(deux)))
 	|| (!(element2 = ft_lstnew(trois)))
@@ -112,20 +159,9 @@ int		main(void)
 		return (0);
 	ft_lstadd_back(&Liste, element);
 	ft_lstadd_back(&Liste, element2);
-	ft_list_push_front(&Liste, element3);
-	printf("size = %d\n", ft_list_size(Liste));
-	svg = Liste;
-	while (Liste)
-	{
-		d++;
-		printf("Liste elem%d = %p\n", d, Liste->data);
-		Liste = Liste->next;
-	}
-	Liste = svg;
-	//ft_lstclear(&Liste, ft_del);
-	free(Liste);
-	free(element);
-	free(element2);
-	//free(element3);
+	ft_lstadd_back(&Liste, element3);
+	printf("size libasm = %d\n", ft_list_size(Liste));
+	printf("size libft  = %d\n", ft_lstsize(Liste));
+	ft_lstclear(&Liste, &free);
 	return (0);
 }

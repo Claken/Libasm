@@ -5,31 +5,29 @@
 #                                                     +:+ +:+         +:+      #
 #    By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/05/05 20:56:10 by sachouam          #+#    #+#              #
-#    Updated: 2020/05/05 20:56:16 by sachouam         ###   ########.fr        #
+#    Created: 2020/06/25 04:20:16 by sachouam          #+#    #+#              #
+#    Updated: 2021/05/05 11:41:18 by sachouam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-		global	ft_write
-
 		section	.text
+		global	ft_write
+		extern	__errno_location
 
-		; rdi == fd : là ou on écrit la chaine
-		; rsi == buffer : là ou se trouve la chaine
-		; rdx == count : nombre de bytes a ecrire
-ft_write:	
-		cmp	rdi, 2
-		jg	reterror
-		cmp	rsi, 0
-		je	reterror
+		; rdi == fd : là où on écrit la chaîne
+		; rsi == buffer : là où se trouve la chaîne
+		; rdx == count : nombre de bytes à écrire
 
-		mov	rax, 1
-		mov	rdi, rdi
-		mov	rsi, rsi
-		mov	rdx, rdx
+ft_write:
+		mov		rax, 1
 		syscall
-		mov	rax, rdx
+		cmp		rax, 0
+		jl		errno
 		ret
-
-reterror:	mov	rax, -1
+errno:
+		neg		rax
+		mov		rdi, rax
+		call	__errno_location wrt ..plt
+		mov		[rax], rdi
+		mov		rax, -1
 		ret

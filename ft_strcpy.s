@@ -5,13 +5,13 @@
 #                                                     +:+ +:+         +:+      #
 #    By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/05/05 20:59:38 by sachouam          #+#    #+#              #
-#    Updated: 2020/05/05 20:59:47 by sachouam         ###   ########.fr        #
+#    Created: 2021/05/01 12:33:44 by sachouam          #+#    #+#              #
+#    Updated: 2021/05/01 12:33:46 by sachouam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 		section .text
-	global	ft_strcpy
+		global	ft_strcpy
 		; rdi == chaine de dest
 		; rsi == chaine source 
 ft_strcpy:
