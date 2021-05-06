@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 11:59:01 by sachouam          #+#    #+#             */
-/*   Updated: 2021/05/05 23:30:53 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/05/06 17:36:03 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,12 +191,88 @@ void
 	printf("\n");
 }
 
+void
+	test_write(void)
+{
+	printf("===== TEST WRITE  =====\n");
+	printf("vrai write :\n");
+	write(1, "c\n", 2);
+	printf("asm  write :\n");
+	ft_write(1, "c\n", 2);
+	printf("\n");
+	printf("vrai write :\n");
+	write(1, "string\n", 7);
+	printf("asm  write :\n");
+	ft_write(1, "string\n", 7);
+	printf("\n");
+	printf("vrai write :\n");
+	write(1, "the\0hidden\n", 11);
+	printf("asm  write :\n");
+	ft_write(1, "the\0hidden\n", 11);
+	printf("\n");
+	printf("vrai write :\n");
+	write(2, "std = 2\n", 8);
+	printf("asm  write :\n");
+	ft_write(2, "std = 2\n", 8);
+	printf("\n");
+	printf("vrai write :\n");
+	write(1, "pas assez de places", 16);
+	printf("\n");
+	printf("asm  write :\n");
+	ft_write(1, "pas assez de places", 16);
+	printf("\n");
+	printf("\n");
+	printf("vrai write :\n");
+	write(1, "#c#s#p#x#X#e#f#g\n", 18);
+	printf("asm  write :\n");
+	ft_write(1, "#c#s#p#x#X#e#f#g\n", 18);
+	printf("\n");
+	char str6[] = "\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0b\x0c\x0d\x0e\x0f";
+	printf("vrai write :\n");
+	write(1, str6, 50);
+	printf("\n");
+	printf("asm  write :\n");
+	ft_write(1, str6, 50);
+	printf("\n");
+	printf("\n");
+	printf("(quand std = -1)\n");
+	printf("vrai write :\n");
+	printf("return value = %ld\n", write(-1, "bonjour", 7));
+	printf("errno        = %d\n", errno);
+	errno = 0;
+	printf("asm  write :\n");
+	printf("return value = %ld\n", ft_write(-1, "bonjour", 7));
+	printf("errno        = %d\n", errno);
+	printf("\n");
+	printf("(quand std = 3 et chaine = \"\")\n");
+	printf("vrai write :\n");
+	printf("return value = %ld\n", write(3, "", 0));
+	printf("errno        = %d\n", errno);
+	errno = 0;
+	printf("asm  write :\n");
+	printf("return value = %ld\n", ft_write(3, "", 0));
+	printf("errno        = %d\n", errno);
+	printf("\n");
+}
+
+void
+	test_read(void)
+{
+	printf("=====  TEST READ  =====\n");
+
+}
+
 int
 	main(int ac, char **av)
 {
 	if (ac < 2)
 	{
-		printf("not enough arguments bitch\n");
+		printf("not enough arguments\n");
+		return (0);
+	}
+	if (ac > 2)
+	{
+		printf("too much arguments\n");
 		return (0);
 	}
 	if (atoi(av[1]) == 1)
@@ -206,9 +282,9 @@ int
 	else if (atoi(av[1]) == 3)
 		test_strcmp();
 	else if (atoi(av[1]) == 4)
-		printf("===== TEST WRITE  =====\n");
+		test_write();
 	else if (atoi(av[1]) == 5)
-		printf("=====  TEST READ  =====\n");
+		test_read();
 	else if (atoi(av[1]) == 6)
 		test_strdup();
 	else
