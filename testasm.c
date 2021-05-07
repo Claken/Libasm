@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 11:59:01 by sachouam          #+#    #+#             */
-/*   Updated: 2021/05/06 17:36:03 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/05/07 16:09:20 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,10 +256,93 @@ void
 }
 
 void
-	test_read(void)
+	test_read(char *av)
 {
 	printf("=====  TEST READ  =====\n");
+	char buffer[1000];
+	char fd;
 
+	fd = open(av, O_RDONLY);
+	printf("vrai read : \n");
+	printf("return value : %ld\n", read(fd, buffer, 15));
+	printf("buffer : %s\n", buffer);
+	close(fd);
+	fd = open(av, O_RDONLY);
+	bzero(buffer, 1000);
+	printf("asm  read : \n");
+	printf("return value : %ld\n", ft_read(fd, buffer, 15));
+	printf("buffer : %s\n", buffer);
+	bzero(buffer, 1000);
+	close(fd);
+	fd = open(av, O_RDONLY);
+	printf("\n");
+
+	fd = open(av, O_RDONLY);
+	printf("quand size = 1000\n");
+	printf("vrai read : \n");
+	printf("return value : %ld\n", read(fd, buffer, 1000));
+	printf("buffer : %s\n", buffer);
+	close(fd);
+	fd = open(av, O_RDONLY);
+	bzero(buffer, 1000);
+	printf("asm  read : \n");
+	printf("return value : %ld\n", ft_read(fd, buffer, 1000));
+	printf("buffer : %s\n", buffer);
+	bzero(buffer, 1000);
+	close(fd);
+	fd = open(av, O_RDONLY);
+	printf("\n");
+
+	printf("(quand size = 0)\n");
+	printf("vrai read : \n");
+	printf("return value : %ld\n", read(fd, buffer, 0));
+	printf("buffer : %s\n", buffer);
+	close(fd);
+	fd = open(av, O_RDONLY);
+	printf("asm  read : \n");
+	printf("return value : %ld\n", ft_read(fd, buffer, 0));
+	printf("buffer : %s\n", buffer);
+	close(fd);
+	fd = open(av, O_RDONLY);
+	printf("\n");
+
+	printf("(quand size = -1)\n");
+	printf("vrai read : \n");
+	printf("return value : %ld\n", read(fd, buffer, -1));
+	printf("errno        = %d\n", errno);
+	errno = 0;
+	close(fd);
+	fd = open(av, O_RDONLY);
+	printf("asm  read : \n");
+	printf("return value : %ld\n", ft_read(fd, buffer, -1));
+	printf("errno        = %d\n", errno);
+	errno = 0;
+	close(fd);
+	fd = open(av, O_RDONLY);
+	printf("\n");
+
+	printf("(quand fd = -1)\n");
+	printf("vrai read :\n");
+	printf("return value = %ld\n", read(-1, buffer, 7));
+	printf("errno        = %d\n", errno);
+	errno = 0;
+	printf("asm  read :\n");
+	printf("return value = %ld\n", ft_read(-1, buffer, 7));
+	printf("errno        = %d\n", errno);
+	printf("\n");
+
+	printf("(quand buffer = NULL)\n");
+	printf("vrai read :\n");
+	printf("return value = %ld\n", read(fd, NULL, 7));
+	printf("errno        = %d\n", errno);
+	errno = 0;
+	close(fd);
+	fd = open(av, O_RDONLY);
+	printf("asm  read :\n");
+	printf("return value = %ld\n", ft_read(fd, NULL, 7));
+	printf("errno        = %d\n", errno);
+	printf("\n");
+	close(fd);
 }
 
 int
@@ -270,11 +353,6 @@ int
 		printf("not enough arguments\n");
 		return (0);
 	}
-	if (ac > 2)
-	{
-		printf("too much arguments\n");
-		return (0);
-	}
 	if (atoi(av[1]) == 1)
 		test_strlen();
 	else if (atoi(av[1]) == 2)
@@ -283,11 +361,16 @@ int
 		test_strcmp();
 	else if (atoi(av[1]) == 4)
 		test_write();
-	else if (atoi(av[1]) == 5)
-		test_read();
+	else if (atoi(av[1]) == 5 && ac > 2)
+		test_read(av[2]);
 	else if (atoi(av[1]) == 6)
 		test_strdup();
 	else
-		printf("put a number between 1 and 6\n");
+	{
+		if (atoi(av[1]) == 5 && ac <= 2)
+			printf("put a file .txt in second argument for read (5)\n");
+		else
+			printf("put a number between 1 and 6\n");
+	}
 	return (0);
 }
