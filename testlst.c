@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 14:49:56 by sachouam          #+#    #+#             */
-/*   Updated: 2021/05/05 11:57:38 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/05/09 21:02:29 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,31 +135,69 @@ int		main(void)
 	t_list	*element;
 	t_list	*element2;
 	t_list	*element3;
+	t_list	*element4;
+	t_list	*element5;
+	t_list	*element6;
+	t_list	*element7;
+	t_list	*element8;
 
 	t_list	*svg;
 	t_list	*newlist;
-	void	*un;
-	void	*deux;
-	void	*trois;
-	void	*quatre;
 	int		d;
-
-	un			= (void *)1;
-	deux		= (void *)2;
-	trois		= (void *)3;
-	quatre		= (void *)4;
 
 	d			= 0;
 	printf("size libft  quand Liste est NULL = %d\n", ft_lstsize(Liste));
 	printf("size libasm quand Liste est NULL = %d\n", ft_list_size(Liste));
-	if (!(Liste = ft_lstnew(un))
-	|| (!(element = ft_lstnew(deux)))
-	|| (!(element2 = ft_lstnew(trois)))
-	|| (!(element3 = ft_lstnew(quatre))))
+	printf("\n");
+	if (!(Liste = ft_lstnew((void *)1))
+	|| (!(element = ft_lstnew((void *)2)))
+	|| (!(element2 = ft_lstnew((void *)3)))
+	|| (!(element3 = ft_lstnew((void *)4))))
 		return (0);
 	ft_lstadd_back(&Liste, element);
 	ft_lstadd_back(&Liste, element2);
 	ft_lstadd_back(&Liste, element3);
+	svg = Liste;
+	while (Liste)
+	{
+		d++;
+		printf("Liste elem%d = %d\n", d, (int)Liste->data);
+		Liste = Liste->next;
+	}
+	printf("\n");
+	Liste = svg;
+	printf("size libasm = %d\n", ft_list_size(Liste));
+	printf("size libft  = %d\n", ft_lstsize(Liste));
+	printf("\n");
+	ft_lstclear(&Liste, &free);
+	if (!(Liste = ft_lstnew(5))
+	|| (!(element = ft_lstnew((void *)4545)))
+	|| (!(element2 = ft_lstnew((void *)4511145)))
+	|| (!(element3 = ft_lstnew((void *)454555)))
+	|| (!(element4 = ft_lstnew((void *)4545)))
+	|| (!(element5 = ft_lstnew((void *)4545)))
+	|| (!(element6 = ft_lstnew((void *)4545)))
+	|| (!(element7 = ft_lstnew((void *)856)))
+	|| (!(element8 = ft_lstnew((void *)45454545))))
+		return (0);
+	ft_lstadd_back(&Liste, element);
+	ft_lstadd_back(&Liste, element2);
+	ft_lstadd_back(&Liste, element3);
+	ft_lstadd_back(&Liste, element4);
+	ft_lstadd_back(&Liste, element5);
+	ft_lstadd_back(&Liste, element6);
+	ft_lstadd_back(&Liste, element7);
+	ft_lstadd_back(&Liste, element8);
+	svg = Liste;
+	d = 0;
+	while (Liste)
+	{
+		d++;
+		printf("Liste elem%d = %d\n", d, (int)Liste->data);
+		Liste = Liste->next;
+	}
+	printf("\n");
+	Liste = svg;
 	printf("size libasm = %d\n", ft_list_size(Liste));
 	printf("size libft  = %d\n", ft_lstsize(Liste));
 	ft_lstclear(&Liste, &free);
