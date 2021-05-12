@@ -6,7 +6,7 @@
 #    By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/01 12:33:24 by sachouam          #+#    #+#              #
-#    Updated: 2021/05/08 13:52:59 by sachouam         ###   ########.fr        #
+#    Updated: 2021/05/12 01:07:10 by sachouam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,6 @@
 		global	ft_strcmp
 		; rdi == premiere chaine
 		; rsi == deuxieme chaine
-		; rdx
-		; rcx
 ft_strcmp:
 		cmp	rdi, 0
 		je	retzero
@@ -26,16 +24,14 @@ while:
 		mov cl, byte [rsi]
 		cmp al, 0
 		je	return
-		cmp	cl, 0
-		je	return
 		inc rdi
 		inc rsi
 		cmp al, cl
 		je	while
 return:
 		cmp al, cl
-		jl	retneg
-		jg	retpos
+		jb	retneg
+		ja	retpos
 retzero:
 		mov	rax, 0
 		ret

@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 11:59:01 by sachouam          #+#    #+#             */
-/*   Updated: 2021/05/07 16:09:20 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/05/12 01:53:54 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,27 +116,28 @@ void
 	char s1[] = "";
 	char s2[] = "dzd";
 	printf("chaines : \"\" et %s\n", s2);
-	printf("vrai   strcmp : %d\n", strcmp(s1, s2));
-//	strcmp(s1, s2) < 0 ? -1 : strcmp(s1, s2));
+	printf("vrai   strcmp : %d\n", strcmp(s1, s2) < 0 ? -1 : strcmp(s1, s2));
 	printf("libasm strcmp : %d\n", ft_strcmp(s1, s2));
 	printf("\n");
 	char st1[] = "bon";
 	char st2[] = "bo";
 	printf("chaines : %s et %s\n", st1, st2);
-	printf("vrai   strcmp : %d\n", strcmp(st1, st2));
-//	strcmp(st1, st2) > 0 ? 1 : strcmp(st1, st2));
+	printf("vrai   strcmp : %d\n", strcmp(st1, st2) > 0 ? 1 : strcmp(st1, st2));
 	printf("libasm strcmp : %d\n", ft_strcmp(st1, st2));
 	printf("\n");
 	printf("chaines : %s et %s\n", st2, st1);
-	printf("vrai   strcmp : %d\n", strcmp(st2, st1));
+	printf("vrai   strcmp : %d\n", strcmp(st2, st1) < 0 ? -1 : strcmp(st2, st1));
 	printf("libasm strcmp : %d\n", ft_strcmp(st2, st1));
 	printf("\n");
 	char src1[] = "\xff\xff";
 	char src2[] = "\xff";
 	printf("chaines : \\xff\\xff et \\xff\n");
-	printf("vrai   strcmp : %d\n", strcmp(src1, src2));
-//	strcmp(src1, src2) > 0 ? 1 : strcmp(src1, src2));
+	printf("vrai   strcmp : %d\n", strcmp(src1, src2) > 0 ? 1 : strcmp(src1, src2));
 	printf("libasm strcmp : %d\n", ft_strcmp(src1, src2));
+	printf("\n");
+	printf("chaines : \\xff et \\xff\\xff\n");
+	printf("vrai   strcmp : %d\n", strcmp(src2, src1) < 0 ? -1 : strcmp(src2, src1));
+	printf("libasm strcmp : %d\n", ft_strcmp(src2, src1));
 	printf("\n");
 }
 

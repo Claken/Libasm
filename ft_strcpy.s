@@ -6,14 +6,14 @@
 #    By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/01 12:33:44 by sachouam          #+#    #+#              #
-#    Updated: 2021/05/09 21:04:08 by sachouam         ###   ########.fr        #
+#    Updated: 2021/05/08 13:07:19 by sachouam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 		section .text
 		global	ft_strcpy
 		; rdi == chaine de dest
-		; rsi == chaine source
+		; rsi == chaine source 
 ft_strcpy:
 		mov	rdx, 0
 while:
