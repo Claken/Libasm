@@ -6,18 +6,11 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 14:49:56 by sachouam          #+#    #+#             */
-/*   Updated: 2021/05/09 21:02:29 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/05/12 12:29:49 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <string.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include <errno.h>
-
-# include "libasm.h"
+# include "libasm_bonus.h"
 
 void	list_push_front(t_list **begin_list, void *data)
 {

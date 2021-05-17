@@ -6,16 +6,9 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 11:59:01 by sachouam          #+#    #+#             */
-/*   Updated: 2021/05/12 01:53:54 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/05/17 16:56:18 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-# include <stdlib.h>
-# include <unistd.h>
-# include <string.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include <errno.h>
 
 # include "libasm.h"
 
@@ -139,6 +132,12 @@ void
 	printf("vrai   strcmp : %d\n", strcmp(src2, src1) < 0 ? -1 : strcmp(src2, src1));
 	printf("libasm strcmp : %d\n", ft_strcmp(src2, src1));
 	printf("\n");
+	char string1[] = "\x01";
+	char string2[] = "\x01";
+	printf("chaines : \"\\x01\" et \"\\x01\"\n");
+	printf("vrai   strcmp : %d\n", strcmp(string1, string2));
+	printf("libasm strcmp : %d\n", ft_strcmp(string1, string2));
+	printf("\n");
 }
 
 void
@@ -185,8 +184,8 @@ void
 	printf("chaine : \\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\x09\\x0b\\x0c\\x0d\\x0e\\x0f\n");
 	s1 = strdup(str6);
 	s2 = ft_strdup(str6);
-	printf("vrai   strdup = %s.\n", s1);
-	printf("libasm strdup = %s.\n", s2);
+	printf("vrai   strdup = %s(endofstring)\n", s1);
+	printf("libasm strdup = %s(endofstring)\n", s2);
 	free(s1);
 	free(s2);
 	printf("\n");
@@ -263,6 +262,7 @@ void
 	char buffer[1000];
 	char fd;
 
+	bzero(buffer, 1000);
 	fd = open(av, O_RDONLY);
 	printf("vrai read : \n");
 	printf("return value : %ld\n", read(fd, buffer, 15));
@@ -305,6 +305,41 @@ void
 	printf("buffer : %s\n", buffer);
 	close(fd);
 	fd = open(av, O_RDONLY);
+	printf("\n");
+
+	fd = open(av, O_RDONLY);
+	printf("quand size = 1000\n");
+	printf("vrai read : \n");
+	printf("return value : %ld\n", read(fd, buffer, 1000));
+	printf("buffer : %s\n", buffer);
+	close(fd);
+	fd = open(av, O_RDONLY);
+	bzero(buffer, 1000);
+	printf("asm  read : \n");
+	printf("return value : %ld\n", ft_read(fd, buffer, 1000));
+	printf("buffer : %s\n", buffer);
+	bzero(buffer, 1000);
+	close(fd);
+	fd = open(av, O_RDONLY);
+	printf("\n");
+
+	read(fd, buffer, 10);
+	bzero(buffer, 1000);
+	printf("quand fd est déjà open\n");
+	printf("vrai read : \n");
+	printf("return value : %ld\n", read(fd, buffer, 10));
+	printf("buffer : %s\n", buffer);
+	close(fd);
+	fd = open(av, O_RDONLY);
+	bzero(buffer, 1000);
+	read(fd, buffer, 10);
+	bzero(buffer, 1000);
+	printf("asm  read : \n");
+	printf("return value : %ld\n", ft_read(fd, buffer, 10));
+	printf("buffer : %s\n", buffer);
+	close(fd);
+	fd = open(av, O_RDONLY);
+	bzero(buffer, 1000);
 	printf("\n");
 
 	printf("(quand size = -1)\n");
