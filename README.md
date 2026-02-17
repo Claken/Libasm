@@ -1,5 +1,7 @@
 # LIBASM
 
+A 42 school project focused on rebuilding key libc functions in x86_64 assembly (NASM) and packaging them into a static library.
+
 ## 👩🏻‍🏫 What I gained from the project
 
 This project helped me strengthen low-level programming fundamentals by reimplementing standard C library behaviors in x86_64 assembly with NASM. I learned how C and assembly interact through the System V ABI, how to handle return values and `errno` correctly for syscalls, and how to structure/reuse an assembly static library from C tests.
